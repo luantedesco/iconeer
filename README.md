@@ -32,6 +32,10 @@ The app is not notarized by Apple, so macOS blocks it on first launch. Try to op
 xattr -dr com.apple.quarantine "/Applications/Iconeer.app"
 ```
 
+To change other apps, Iconeer needs the **App Management** permission: macOS asks for it the first time, or turn on Iconeer in **System Settings → Privacy & Security → App Management**.
+
+macOS ties that permission to the app's signature. Signed ad hoc, each build is a new app to macOS, and the permission has to be granted again. `build.sh` signs with a certificate named **Iconeer Local Signing** when it is in your Keychain, which keeps the permission across builds. To create it, open Keychain Access, choose **Keychain Access → Certificate Assistant → Create a Certificate…**, and set Name: `Iconeer Local Signing`, Identity Type: **Self-Signed Root**, Certificate Type: **Code Signing**.
+
 ## Tests
 
 ```sh
