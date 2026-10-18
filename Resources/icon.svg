@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c38bff"/><stop offset="1" stop-color="#6e3bff"/></linearGradient>
+</defs>
+<rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg)"/>
+<!-- Dash period = exact perimeter / 16, starting at top centre, so both axes are symmetric -->
+<path d="M512,232.0 H664.0 A128,128 0 0 1 792.0,360.0 V664.0 A128,128 0 0 1 664.0,792.0 H360.0 A128,128 0 0 1 232.0,664.0 V360.0 A128,128 0 0 1 360.0,232.0 Z" fill="#ffffff" fill-opacity="0.12" stroke="#ffffff" stroke-opacity="1" stroke-width="32" stroke-dasharray="75.76 50.51" stroke-dashoffset="37.88" stroke-linecap="round"/>
+</svg>

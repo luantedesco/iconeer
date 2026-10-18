@@ -14,6 +14,7 @@ let package = Package(
     platforms: [.macOS(.v26)],
     targets: [
         .target(name: "IconeerCore"),
+        .executableTarget(name: "Iconeer", dependencies: ["IconeerCore"]),
         .testTarget(name: "IconeerCoreTests", dependencies: ["IconeerCore"], swiftSettings: testSettings),
     ]
 )
