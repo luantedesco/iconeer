@@ -8,6 +8,7 @@ The new icon is set on the app itself, not on the Dock, so it shows in Finder an
 
 - macOS 26 or later
 - Iconeer is in English and Brazilian Portuguese, following the system language.
+- The **App Management** permission, to change other apps: macOS asks for it the first time, or turn on Iconeer in **System Settings → Privacy & Security → App Management**.
 - A macOSicons API key, to search the catalog. Create one at [macosicons.com/developers](https://macosicons.com/developers); the free plan includes 50 requests a month. Iconeer keeps the key in your Keychain. Applying an icon from a file needs no key.
 
 ## What it can't change
@@ -18,6 +19,26 @@ The new icon is set on the app itself, not on the Dock, so it shows in Finder an
 
 Iconeer marks these apps in the list and does not try to change them.
 
+## Install
+
+Paste this in Terminal:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/luantedesco/iconeer/main/Tools/install.sh | sh
+```
+
+It downloads the latest release, installs it in `/Applications`, and opens it. Run it again to update.
+
+### Manual install
+
+Download `Iconeer.dmg` from the [latest release](https://github.com/luantedesco/iconeer/releases/latest), open it, and drag `Iconeer.app` to `Applications`.
+
+The app is not notarized by Apple, so macOS blocks it on first launch. Try to open it, then go to **System Settings → Privacy & Security** and click **Open Anyway**. Or remove the quarantine flag from the terminal:
+
+```sh
+xattr -dr com.apple.quarantine "/Applications/Iconeer.app"
+```
+
 ## Build
 
 ```sh
@@ -26,26 +47,18 @@ Iconeer marks these apps in the list and does not try to change them.
 
 The app is built at `build/Iconeer.app` as a universal binary (Apple Silicon and Intel). Move it to `/Applications` and open it.
 
-The app is not notarized by Apple, so macOS blocks it on first launch. Try to open it, then go to **System Settings → Privacy & Security** and click **Open Anyway**. Or remove the quarantine flag from the terminal:
+To package it as a disk image for distribution:
 
 ```sh
-xattr -dr com.apple.quarantine "/Applications/Iconeer.app"
+./Tools/make-dmg.sh
 ```
 
-To change other apps, Iconeer needs the **App Management** permission: macOS asks for it the first time, or turn on Iconeer in **System Settings → Privacy & Security → App Management**.
+The image is created at `build/Iconeer.dmg`.
 
-macOS ties that permission to the app's signature. Signed ad hoc, each build is a new app to macOS, and the permission has to be granted again. `build.sh` signs with a certificate named **Iconeer Local Signing** when it is in your Keychain, which keeps the permission across builds. To create it, open Keychain Access, choose **Keychain Access → Certificate Assistant → Create a Certificate…**, and set Name: `Iconeer Local Signing`, Identity Type: **Self-Signed Root**, Certificate Type: **Code Signing**.
-
-## Tests
+To run the tests:
 
 ```sh
 swift test
-```
-
-Formatting follows `.swift-format`; check it with:
-
-```sh
-swift format lint -r -s Sources Tests Tools Package.swift
 ```
 
 ## Usage
@@ -75,6 +88,14 @@ Icons from macOSicons.com remain the property of their creators. Iconeer shows e
 2. Choose **Quit** from the menu bar icon.
 3. Move `Iconeer.app` to the Trash and delete `~/Library/Application Support/Iconeer/`.
 4. Delete the "Iconeer" item from Keychain Access.
+
+## Contributing
+
+Bug reports, ideas, and pull requests are welcome. [CONTRIBUTING.md](CONTRIBUTING.md) covers building, testing, and the signing certificate that keeps the App Management permission across builds.
+
+## Translations
+
+Iconeer is available in English and Brazilian Portuguese. To add a language, see [Translations](CONTRIBUTING.md#translations) in CONTRIBUTING.md.
 
 ## License
 

@@ -1,0 +1,48 @@
+name: Bug report
+description: Something does not work as described in the README.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: input
+    id: app
+    attributes:
+      label: Iconeer version
+      description: Finder → Applications → Iconeer → Get Info.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: "26.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: chip
+    attributes:
+      label: Mac
+      options: [Apple Silicon, Intel]
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: App whose icon you were changing
+      description: Its name, and where it came from (its website, Homebrew, Setapp…).
+  - type: dropdown
+    id: source
+    attributes:
+      label: Icon source
+      options: [macOSicons catalog, PNG or ICNS file, Not applicable]
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: A screenshot of the Iconeer window, with the message it shows, helps the most.
