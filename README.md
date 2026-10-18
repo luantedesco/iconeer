@@ -2,12 +2,13 @@
 
 A macOS menu bar app that changes the icons of your apps with icons from [macOSicons.com](https://macosicons.com), or with any PNG or ICNS file, and puts them back after the apps update themselves.
 
+![Iconeer showing macOSicons results for Google Chrome](screenshots/main.png)
+
 The new icon is set on the app itself, not on the Dock, so it shows in Finder and in the Dock alike. Iconeer writes it the same way Finder's Get Info does, as an `Icon\r` file at the root of the app bundle; nothing inside `Contents/` changes, so the app's code signature stays valid.
 
 ## Requirements
 
 - macOS 26 or later
-- Iconeer is in English and Brazilian Portuguese, following the system language.
 - The **App Management** permission, to change other apps: macOS asks for it the first time, or turn on Iconeer in **System Settings → Privacy & Security → App Management**.
 - A macOSicons API key, to search the catalog. Create one at [macosicons.com/developers](https://macosicons.com/developers); the free plan includes 50 requests a month. Iconeer keeps the key in your Keychain. Applying an icon from a file needs no key.
 
@@ -39,28 +40,6 @@ The app is not notarized by Apple, so macOS blocks it on first launch. Try to op
 xattr -dr com.apple.quarantine "/Applications/Iconeer.app"
 ```
 
-## Build
-
-```sh
-./build.sh
-```
-
-The app is built at `build/Iconeer.app` as a universal binary (Apple Silicon and Intel). Move it to `/Applications` and open it.
-
-To package it as a disk image for distribution:
-
-```sh
-./Tools/make-dmg.sh
-```
-
-The image is created at `build/Iconeer.dmg`.
-
-To run the tests:
-
-```sh
-swift test
-```
-
 ## Usage
 
 1. Open Iconeer and select an app. The sidebar groups your apps into **Customized**, **Apps** and **Can't Change**; type in **Search apps** to filter them by name. **Refresh** (⌘R) scans the app folders again.
@@ -88,6 +67,30 @@ Icons from macOSicons.com remain the property of their creators. Iconeer shows e
 2. Choose **Quit** from the menu bar icon.
 3. Move `Iconeer.app` to the Trash and delete `~/Library/Application Support/Iconeer/`.
 4. Delete the "Iconeer" item from Keychain Access.
+
+## Build
+
+```sh
+./build.sh
+```
+
+The app is built at `build/Iconeer.app` as a universal binary (Apple Silicon and Intel). Move it to `/Applications` and open it.
+
+To package it as a disk image for distribution:
+
+```sh
+./Tools/make-dmg.sh
+```
+
+The image is created at `build/Iconeer.dmg`.
+
+To run the tests:
+
+```sh
+swift test
+```
+
+The app icon is drawn in `Resources/icon.svg`. `build.sh` turns it into `AppIcon.icns` on every build, so editing the SVG and rebuilding is enough.
 
 ## Contributing
 
