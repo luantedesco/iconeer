@@ -1,0 +1,68 @@
+/* Sidebar */
+"Customized" = "Personalizados";
+"Apps" = "Apps";
+"Can't Change" = "Não podem ser alterados";
+"Search apps" = "Buscar apps";
+"App Store" = "App Store";
+"System" = "Sistema";
+"No permission" = "Sem permissão";
+
+/* Detail */
+"Select an app to change its icon." = "Selecione um app para trocar o ícone.";
+"Refresh" = "Atualizar";
+"Refresh the app list (⌘R)" = "Atualizar a lista de apps (⌘R)";
+"Choose Image…" = "Escolher Imagem…";
+"Revert" = "Reverter";
+"Search macOSicons" = "Buscar no macOSicons";
+"Search" = "Buscar";
+"Load More" = "Carregar Mais";
+"Apply this icon" = "Aplicar este ícone";
+"by %@ · macOSicons.com" = "por %@ · macOSicons.com";
+"No icons found for \"%@\"." = "Nenhum ícone encontrado para \"%@\".";
+"%@'s icon changed." = "O ícone de %@ foi trocado.";
+"%@ is open: the Dock shows the new icon the next time it opens." = "%@ está aberto: o Dock mostra o ícone novo na próxima vez que ele abrir.";
+
+/* Settings */
+"Iconeer Settings" = "Ajustes do Iconeer";
+"macOSicons API key" = "API key do macOSicons";
+"API key" = "API key";
+"A key is saved" = "Há uma key salva";
+"Paste your key" = "Cole sua key";
+"Create a key at macosicons.com/developers" = "Crie uma key em macosicons.com/developers";
+"Clear" = "Apagar";
+"Save" = "Salvar";
+"Optional. Needed only to search the catalog; Choose Image… works without it. Iconeer keeps it in your Keychain." = "Opcional. Só é necessária para buscar no catálogo; Escolher Imagem… funciona sem ela. O Iconeer guarda a key nas suas Chaves.";
+"Icon credits and terms" = "Créditos e termos dos ícones";
+"Icons from macOSicons.com remain the property of their creators. Iconeer shows each creator's credit and macOSicons.com as the source, and applies icons for your personal customization only." = "Os ícones do macOSicons.com continuam sendo propriedade dos seus criadores. O Iconeer mostra o crédito de cada criador e o macOSicons.com como fonte, e aplica os ícones apenas para sua personalização pessoal.";
+
+/* Messages */
+"App Store apps can't be changed: macOS blocks writing to them." = "Apps da App Store não podem ser alterados: o macOS bloqueia a gravação neles.";
+"Apple's own apps can't be changed." = "Os apps da própria Apple não podem ser alterados.";
+"You don't have permission to change this app." = "Você não tem permissão para alterar este app.";
+"The image could not be read." = "Não foi possível ler a imagem.";
+"macOS refused to change the icon." = "O macOS recusou a troca do ícone.";
+"Add your macOSicons API key to search." = "Adicione sua API key do macOSicons para buscar.";
+"macOSicons rejected the API key. Check it and save it again." = "O macOSicons recusou a API key. Confira e salve de novo.";
+"This month's macOSicons quota is used up. It resets next month; an image file still works." = "A cota do macOSicons deste mês acabou. Ela renova no mês que vem; um arquivo de imagem continua funcionando.";
+"macOSicons sent a response Iconeer can't read." = "O macOSicons enviou uma resposta que o Iconeer não consegue ler.";
+"macOSicons error %lld." = "Erro %lld do macOSicons.";
+"macOSicons error %lld: %@." = "Erro %lld do macOSicons: %@.";
+"Iconeer couldn't restore %@'s icon. %@" = "O Iconeer não conseguiu restaurar o ícone de %@. %@";
+
+/* Menus */
+"Open Iconeer" = "Abrir o Iconeer";
+"Settings…" = "Ajustes…";
+"Quit" = "Encerrar";
+"Hide Iconeer" = "Ocultar Iconeer";
+"Quit Iconeer" = "Encerrar Iconeer";
+"Edit" = "Editar";
+"Undo" = "Desfazer";
+"Redo" = "Refazer";
+"Cut" = "Recortar";
+"Copy" = "Copiar";
+"Paste" = "Colar";
+"Select All" = "Selecionar Tudo";
+"View" = "Visualizar";
+"Window" = "Janela";
+"Minimize" = "Minimizar";
+"Close" = "Fechar";

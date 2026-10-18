@@ -15,6 +15,7 @@ done
 lipo -create build/Iconeer-arm64 build/Iconeer-x86_64 -output "$APP/Contents/MacOS/Iconeer"
 rm build/Iconeer-arm64 build/Iconeer-x86_64
 cp Resources/Info.plist "$APP/Contents/Info.plist"
+cp -R Resources/*.lproj "$APP/Contents/Resources/"
 swift Tools/make-icon.swift "$APP/Contents/Resources/AppIcon.icns"
 if security find-identity -p codesigning | grep -q "\"$IDENTITY\""; then
   codesign --force -s "$IDENTITY" "$APP"
