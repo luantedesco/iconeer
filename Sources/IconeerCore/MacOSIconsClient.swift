@@ -79,12 +79,13 @@ public struct MacOSIconsClient: Sendable {
             var credit: String?
             var usersName: String?
 
-            // Hits without a name or a preview cannot be shown, and are left out.
+            // Hits without a name or a preview cannot be shown, and are left out. The author is
+            // `usersName`: `credit` is usually a link to the creator's site, or empty.
             var hit: SearchHit? {
                 guard let objectID, let appName, let lowResPngUrl else { return nil }
                 return SearchHit(
                     objectID: objectID, appName: appName, icnsURL: icnsUrl,
-                    pngURL: lowResPngUrl, author: credit ?? usersName)
+                    pngURL: lowResPngUrl, author: usersName ?? credit)
             }
         }
         var hits: [Hit]

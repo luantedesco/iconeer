@@ -50,7 +50,8 @@ func stubbedClient(status: Int, body: String) -> MacOSIconsClient {
 let searchResponse = """
     {"hits": [
       {"objectID": "a1", "appName": "Spotify", "icnsUrl": "https://cdn.test/a1.icns",
-       "lowResPngUrl": "https://cdn.test/a1.png", "credit": "Jane", "downloads": 10},
+       "lowResPngUrl": "https://cdn.test/a1.png", "credit": "https://twitter.com/jane", "usersName": "Jane",
+       "downloads": 10},
       {"objectID": "b2", "appName": "Spotify", "lowResPngUrl": "https://cdn.test/b2.png", "usersName": "joe"},
       {"objectID": "c3", "appName": "No preview"}
      ],
