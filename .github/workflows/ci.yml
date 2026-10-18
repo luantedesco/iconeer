@@ -15,7 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Toolchain
-        run: swift --version
+        run: |
+          echo "DEVELOPER_DIR=$(xcode-select -p)" >> "$GITHUB_ENV"
+          xcode-select -p
+          swift --version
       - name: Lint
         run: swift format lint -r -s Sources Tests Tools Package.swift
       - name: Test
