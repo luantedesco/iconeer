@@ -34,14 +34,20 @@ final class BackgroundMonitor {
             results = try reapplyMissing(in: service.store)
             notified.remove(Self.storeKey)
         } catch {
-            if notified.insert(Self.storeKey).inserted { notifier.post(IconeerService.message(for: error)) }
+            if notified.insert(Self.storeKey).inserted {
+                logger.error("Store: \(String(describing: error), privacy: .public)")
+                notifier.post(IconeerService.message(for: error))
+            }
             return
         }
         guard !results.isEmpty else { return }
         for result in results {
             let path = result.customization.appPath
             if let notice = failureNotice(result) {
-                if notified.insert(path).inserted { notifier.post(notice) }
+                if notified.insert(path).inserted {
+                    logger.error("Reapply \(path, privacy: .public): \(String(describing: result.error), privacy: .public)")
+                    notifier.post(notice)
+                }
             } else {
                 notified.remove(path)
                 _ = refreshDock(for: URL(fileURLWithPath: path))

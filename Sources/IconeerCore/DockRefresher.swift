@@ -30,6 +30,10 @@ public func runTool(_ path: String, _ args: [String]) {
     let p = Process()
     p.executableURL = URL(fileURLWithPath: path)
     p.arguments = args
-    try? p.run()
+    do { try p.run() } catch {
+        logger.error("\(path, privacy: .public) didn't run: \(error.localizedDescription, privacy: .public)")
+        return
+    }
     p.waitUntilExit()
+    if p.terminationStatus != 0 { logger.error("\(path, privacy: .public) exited with \(p.terminationStatus)") }
 }

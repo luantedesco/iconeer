@@ -42,6 +42,14 @@ body:
       label: Icon source
       options: [macOSicons catalog, PNG or ICNS file, Not applicable]
   - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Iconeer writes its failures to the system log. Paste the output of this Terminal command, run soon after the problem:
+        `/usr/bin/log show --last 1h --predicate 'subsystem == "io.github.luantedesco.iconeer"'`
+      render: text
+  - type: textarea
     id: screenshot
     attributes:
       label: Screenshot
