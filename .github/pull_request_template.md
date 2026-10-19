@@ -9,3 +9,4 @@
 - [ ] `swift test`, `./build.sh`, and `swift format lint -r -s Sources Tests Tools Package.swift` pass
 - [ ] Checked in the running app, in light and dark mode
 - [ ] New or changed interface text is in every `Resources/<language>.lproj/Localizable.strings`
+- [ ] A change people using the app will notice is under **Unreleased** in `CHANGELOG.md`
