@@ -13,6 +13,11 @@ public struct Customization: Codable, Equatable, Sendable {
     public var appliedAt: Date
 }
 
+public enum StoreError: Error, Equatable {
+    // customizations.json exists but can't be decoded.
+    case unreadable
+}
+
 // customizations.json plus a copy of each applied image in icons/. The image is kept for as
 // long as the customization exists, so reapplying after an app update needs no download.
 public struct CustomizationStore: Sendable {
@@ -25,9 +30,14 @@ public struct CustomizationStore: Sendable {
     var file: URL { directory.appendingPathComponent("customizations.json") }
     var icons: URL { directory.appendingPathComponent("icons") }
 
-    public func all() -> [Customization] {
-        guard let data = try? Data(contentsOf: file) else { return [] }
-        return (try? JSONDecoder().decode([Customization].self, from: data)) ?? []
+    // A missing file is an empty store. A file that can't be decoded throws, so that adding or
+    // removing never writes over customizations that are still there.
+    public func all() throws -> [Customization] {
+        guard FileManager.default.fileExists(atPath: file.path) else { return [] }
+        guard let data = try? Data(contentsOf: file),
+            let list = try? JSONDecoder().decode([Customization].self, from: data)
+        else { throw StoreError.unreadable }
+        return list
     }
 
     public func iconURL(of customization: Customization) -> URL {
@@ -37,22 +47,26 @@ public struct CustomizationStore: Sendable {
     // Replaces any previous customization of the same app, and its image.
     @discardableResult
     public func add(app: URL, bundleID: String?, image: URL, source: IconSource, at date: Date = Date()) throws -> Customization {
+        let list = try all()
         try FileManager.default.createDirectory(at: icons, withIntermediateDirectories: true)
         let iconFile = UUID().uuidString + "." + image.pathExtension
         try FileManager.default.copyItem(at: image, to: icons.appendingPathComponent(iconFile))
-        try remove(app: app)
+        deleteImages(of: app, in: list)
         let customization = Customization(appPath: app.path, bundleID: bundleID, iconFile: iconFile, source: source, appliedAt: date)
-        try write(all() + [customization])
+        try write(list.filter { $0.appPath != app.path } + [customization])
         return customization
     }
 
     public func remove(app: URL) throws {
-        var list = all()
+        let list = try all()
+        deleteImages(of: app, in: list)
+        try write(list.filter { $0.appPath != app.path })
+    }
+
+    private func deleteImages(of app: URL, in list: [Customization]) {
         for old in list where old.appPath == app.path {
             try? FileManager.default.removeItem(at: iconURL(of: old))
         }
-        list.removeAll { $0.appPath == app.path }
-        try write(list)
     }
 
     func write(_ list: [Customization]) throws {

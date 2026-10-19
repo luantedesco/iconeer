@@ -10,8 +10,10 @@ final class BackgroundMonitor {
     let notifier: Notifier
     var onChange: () -> Void = {}
     private var timer: Timer?
-    // A failure repeats on every check until the user acts; it is notified once per app.
+    // A failure repeats on every check until the user acts; it is notified once per app, and
+    // once for an unreadable store.
     private var notified: Set<String> = []
+    private static let storeKey = "customizations.json"
 
     init(service: IconeerService, notifier: Notifier) {
         self.service = service
@@ -27,7 +29,14 @@ final class BackgroundMonitor {
     }
 
     func check() {
-        let results = reapplyMissing(in: service.store)
+        let results: [Reapplied]
+        do {
+            results = try reapplyMissing(in: service.store)
+            notified.remove(Self.storeKey)
+        } catch {
+            if notified.insert(Self.storeKey).inserted { notifier.post(IconeerService.message(for: error)) }
+            return
+        }
         guard !results.isEmpty else { return }
         for result in results {
             let path = result.customization.appPath
