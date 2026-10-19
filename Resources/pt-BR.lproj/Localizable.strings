@@ -48,6 +48,7 @@
 "macOSicons error %lld." = "Erro %lld do macOSicons.";
 "macOSicons error %lld: %@." = "Erro %lld do macOSicons: %@.";
 "Iconeer couldn't restore %@'s icon. %@" = "O Iconeer não conseguiu restaurar o ícone de %@. %@";
+"Iconeer can't read its list of customized apps, so it left the list as it is. The file is ~/Library/Application Support/Iconeer/customizations.json." = "O Iconeer não consegue ler a lista de apps personalizados, então a deixou como está. O arquivo é ~/Library/Application Support/Iconeer/customizations.json.";
 
 /* Menus */
 "Open Iconeer" = "Abrir o Iconeer";

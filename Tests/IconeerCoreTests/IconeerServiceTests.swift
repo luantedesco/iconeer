@@ -97,7 +97,7 @@ func supportedApp() throws -> InstalledApp {
     #expect(world.downloads == [catalogHit.icnsURL])
     #expect(world.refreshed == [app.url])
     #expect(isCustomized(app.url))
-    #expect(service.store.all().first?.source == .catalog(objectID: "a1", appName: "Sample", author: "Jane"))
+    #expect(try service.store.all().first?.source == .catalog(objectID: "a1", appName: "Sample", author: "Jane"))
 }
 
 @MainActor @Test func applyingFromAFileRecordsTheFile() throws {
@@ -107,7 +107,7 @@ func supportedApp() throws -> InstalledApp {
     _ = try service.apply(file: sampleIcon, to: app)
 
     #expect(isCustomized(app.url))
-    #expect(service.store.all().first?.source == .file(originalName: "AlertStopIcon.icns"))
+    #expect(try service.store.all().first?.source == .file(originalName: "AlertStopIcon.icns"))
 }
 
 @MainActor @Test func unsupportedAppIsNeverTried() async throws {
@@ -130,7 +130,7 @@ func supportedApp() throws -> InstalledApp {
     _ = try service.revert(app)
 
     #expect(!isCustomized(app.url))
-    #expect(service.store.all().isEmpty)
+    #expect(try service.store.all().isEmpty)
     #expect(world.refreshed == [app.url, app.url])
 }
 

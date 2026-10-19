@@ -16,7 +16,7 @@ import Testing
     let store = CustomizationStore(directory: try temporaryFolder())
     let app = try updatedApp(in: store)
 
-    let result = reapplyMissing(in: store)
+    let result = try reapplyMissing(in: store)
 
     #expect(result.map(\.customization.appPath) == [app.path])
     #expect(result.first?.error == nil)
@@ -29,7 +29,7 @@ import Testing
     let app = try updatedApp(in: store)
     try applyIcon(from: sampleIcon, to: app)
 
-    #expect(reapplyMissing(in: store).isEmpty)
+    #expect(try reapplyMissing(in: store).isEmpty)
 }
 
 @MainActor @Test func uninstalledAppIsSkippedAndKeepsItsCustomization() throws {
@@ -37,24 +37,24 @@ import Testing
     let app = try updatedApp(in: store)
     try FileManager.default.removeItem(at: app)
 
-    #expect(reapplyMissing(in: store).isEmpty)
-    #expect(store.all().count == 1)
+    #expect(try reapplyMissing(in: store).isEmpty)
+    #expect(try store.all().count == 1)
 }
 
 @MainActor @Test func failureCarriesTheCause() throws {
     let store = CustomizationStore(directory: try temporaryFolder())
     _ = try updatedApp(in: store)
-    try FileManager.default.removeItem(at: store.iconURL(of: store.all()[0]))
+    try FileManager.default.removeItem(at: store.iconURL(of: try store.all()[0]))
 
-    #expect(reapplyMissing(in: store).first?.error == .invalidImage)
+    #expect(try reapplyMissing(in: store).first?.error == .invalidImage)
 }
 
 @MainActor @Test func failureNoticeNamesTheAppAndTheCause() throws {
     let store = CustomizationStore(directory: try temporaryFolder())
     _ = try updatedApp(in: store)
-    try FileManager.default.removeItem(at: store.iconURL(of: store.all()[0]))
+    try FileManager.default.removeItem(at: store.iconURL(of: try store.all()[0]))
 
-    let notice = try #require(reapplyMissing(in: store).first.flatMap(failureNotice))
+    let notice = try #require(try reapplyMissing(in: store).first.flatMap(failureNotice))
 
     #expect(notice.contains("Sample"))
     #expect(notice.contains(IconeerService.message(for: ApplyError.invalidImage)))
@@ -64,5 +64,5 @@ import Testing
     let store = CustomizationStore(directory: try temporaryFolder())
     _ = try updatedApp(in: store)
 
-    #expect(reapplyMissing(in: store).compactMap(failureNotice).isEmpty)
+    #expect(try reapplyMissing(in: store).compactMap(failureNotice).isEmpty)
 }

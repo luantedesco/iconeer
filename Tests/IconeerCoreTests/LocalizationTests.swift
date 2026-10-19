@@ -40,7 +40,7 @@ func allTranslations() throws -> [String: [String: String]] {
     let errors: [Error] = [
         ApplyError.unsupported(.appStore), ApplyError.unsupported(.system), ApplyError.unsupported(.notWritable),
         ApplyError.invalidImage, ApplyError.writeFailed, APIError.missingKey, APIError.invalidKey,
-        APIError.quotaExceeded, APIError.invalidResponse,
+        APIError.quotaExceeded, APIError.invalidResponse, StoreError.unreadable,
     ]
     let keys =
         errors.map { IconeerService.message(for: $0) } + [

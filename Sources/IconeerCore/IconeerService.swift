@@ -98,6 +98,12 @@ public final class IconeerService {
             String(localized: "You don't have permission to change this app.")
         case ApplyError.invalidImage: String(localized: "The image could not be read.")
         case ApplyError.writeFailed: String(localized: "macOS refused to change the icon.")
+        case StoreError.unreadable:
+            String(
+                localized: """
+                    Iconeer can't read its list of customized apps, so it left the list as it is. \
+                    The file is ~/Library/Application Support/Iconeer/customizations.json.
+                    """)
         case APIError.missingKey: String(localized: "Add your macOSicons API key to search.")
         case APIError.invalidKey: String(localized: "macOSicons rejected the API key. Check it and save it again.")
         case APIError.quotaExceeded:

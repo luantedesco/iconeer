@@ -9,8 +9,8 @@ public struct Reapplied: Equatable, Sendable {
 // app that is installed but no longer has its icon gets the stored image again. Apps that are
 // not installed are skipped and keep their customization, in case they come back.
 @MainActor
-public func reapplyMissing(in store: CustomizationStore) -> [Reapplied] {
-    store.all().compactMap { customization in
+public func reapplyMissing(in store: CustomizationStore) throws -> [Reapplied] {
+    try store.all().compactMap { customization in
         let app = URL(fileURLWithPath: customization.appPath)
         guard FileManager.default.fileExists(atPath: app.path), !isCustomized(app) else { return nil }
         do {
