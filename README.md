@@ -49,7 +49,7 @@ xattr -dr com.apple.quarantine "/Applications/Iconeer.app"
 
 If the app is open, the Dock keeps its old icon until the app quits; Iconeer tells you when that is the case. Otherwise it restarts the Dock (`killall Dock`) so the new icon shows right away.
 
-Iconeer shows in the Dock while its window is open. Closing the window removes it from the Dock and keeps it in the menu bar. While it runs, it checks every 30 seconds for apps whose custom icon was removed by an update, and puts it back. It also checks when it opens, for updates that happened while it was closed. If an icon can't be restored, Iconeer sends a notification once. macOS adds Iconeer to **System Settings → Notifications** with notifications turned off; turn them on there to get these alerts. Iconeer does not start by itself when you log in; to have that, add it in **System Settings → General → Login Items**.
+Iconeer shows in the Dock while its window is open. Closing the window removes it from the Dock and keeps it in the menu bar. While it runs, it checks every 30 seconds for apps whose custom icon was removed by an update, and puts it back. It also checks when it opens, for updates that happened while it was closed. If an icon can't be restored, Iconeer sends a notification once. macOS adds Iconeer to **System Settings → Notifications** with notifications turned off; turn them on there to get these alerts. Turn on **Open at Login** in the menu bar icon to have Iconeer start with your Mac, so it keeps putting icons back after a restart.
 
 Searches are cached for 30 days, so repeating one does not use your monthly quota.
 
@@ -64,7 +64,7 @@ Icons from macOSicons.com remain the property of their creators. Iconeer shows e
 ## Uninstall
 
 1. Revert the apps you customized, if you want their original icons back.
-2. Choose **Quit** from the menu bar icon.
+2. Turn off **Open at Login** in the menu bar icon, then choose **Quit**.
 3. Move `Iconeer.app` to the Trash and delete `~/Library/Application Support/Iconeer/`.
 4. Delete the "Iconeer" item from Keychain Access.
 

@@ -41,6 +41,7 @@ The tests cover the core; what depends on the real apps, the Dock, and macOS per
 - an app that is closed (the Dock shows the new icon right away) and one that is open (the message says it shows on the next launch)
 - that App Store and Apple apps are listed under **Can't Change**
 - that a customized app gets its icon back after an update, or after deleting its `Icon\r` file with Iconeer running
+- that **Open at Login** starts Iconeer after logging out and in again, and that turning it off removes it from **System Settings → General → Login Items**
 - in light and in dark mode, in English and in Brazilian Portuguese
 
 ## Translations
