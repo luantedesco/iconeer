@@ -46,7 +46,7 @@ final class AppModel: ObservableObject {
             keyDraft = ""
             hasKey = service.hasKey
         } catch {
-            message = IconeerService.message(for: error)
+            report(error)
         }
     }
 
@@ -83,12 +83,12 @@ final class AppModel: ObservableObject {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = [.png, .icns]
         guard panel.runModal() == .OK, let file = panel.url else { return }
-        do { done(try service.apply(file: file, to: app), app) } catch { message = IconeerService.message(for: error) }
+        do { done(try service.apply(file: file, to: app), app) } catch { report(error) }
     }
 
     func revert() {
         guard let app = selected else { return }
-        do { done(try service.revert(app), app) } catch { message = IconeerService.message(for: error) }
+        do { done(try service.revert(app), app) } catch { report(error) }
     }
 
     private func done(_ refresh: DockRefresh, _ app: InstalledApp) {
@@ -103,9 +103,14 @@ final class AppModel: ObservableObject {
         isWorking = true
         message = nil
         do { try await task() } catch {
-            message = IconeerService.message(for: error)
+            report(error)
             if case APIError.missingKey = error { openSettings() }
         }
         isWorking = false
+    }
+
+    private func report(_ error: Error) {
+        logger.error("\(String(describing: error), privacy: .public)")
+        message = IconeerService.message(for: error)
     }
 }
