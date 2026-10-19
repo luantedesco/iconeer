@@ -1,5 +1,6 @@
 import AppKit
 import IconeerCore
+import ServiceManagement
 
 // Iconeer lives in the menu bar: closing its window does not quit it, so it keeps reapplying
 // icons while it runs. Only Quit ends it. It shows in the Dock, Cmd+Tab and the menu bar's app
@@ -37,6 +38,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: String(localized: "Open Iconeer"), action: #selector(openWindow), keyEquivalent: "o"))
         menu.addItem(NSMenuItem(title: String(localized: "Settings…"), action: #selector(openSettings), keyEquivalent: ","))
+        let login = NSMenuItem(title: String(localized: "Open at Login"), action: #selector(toggleOpenAtLogin(_:)), keyEquivalent: "")
+        login.state = SMAppService.mainApp.status == .enabled ? .on : .off
+        menu.addItem(login)
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: String(localized: "Quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
@@ -49,6 +53,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         show(settings)
     }
     @objc private func refresh() { model.reload() }
+
+    // Reapplying only happens while Iconeer runs, so starting with the Mac keeps it going after a restart.
+    @objc private func toggleOpenAtLogin(_ item: NSMenuItem) {
+        let service = SMAppService.mainApp
+        do {
+            try service.status == .enabled ? service.unregister() : service.register()
+        } catch {
+            NSApp.activate()
+            let alert = NSAlert()
+            alert.alertStyle = .warning
+            alert.messageText = String(localized: "Open at Login couldn't be changed.")
+            alert.informativeText = error.localizedDescription
+            alert.runModal()
+        }
+        item.state = service.status == .enabled ? .on : .off
+    }
 
     private func show(_ window: NSWindow) {
         NSApp.setActivationPolicy(.regular)
