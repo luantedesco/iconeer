@@ -4,6 +4,8 @@ What changes for people using Iconeer, by version. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-18
+
 ### Added
 
 - **Open at Login** in the menu bar icon starts Iconeer with your Mac, so it keeps putting icons back after a restart.
@@ -22,5 +24,6 @@ What changes for people using Iconeer, by version. The format follows [Keep a Ch
 - In English and Brazilian Portuguese.
 - Install with one Terminal command; see the README.
 
-[Unreleased]: https://github.com/luantedesco/iconeer/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/luantedesco/iconeer/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/luantedesco/iconeer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/luantedesco/iconeer/releases/tag/v0.1.0
