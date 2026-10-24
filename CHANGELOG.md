@@ -4,6 +4,8 @@ What changes for people using Iconeer, by version. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-24
+
 ### Changed
 
 - Iconeer no longer shows in the Dock or Cmd+Tab, even with its window open, and starts without opening the window. Open it with **Open Iconeer** in the menu bar icon.
@@ -28,6 +30,7 @@ What changes for people using Iconeer, by version. The format follows [Keep a Ch
 - In English and Brazilian Portuguese.
 - Install with one Terminal command; see the README.
 
-[Unreleased]: https://github.com/luantedesco/iconeer/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/luantedesco/iconeer/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/luantedesco/iconeer/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/luantedesco/iconeer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/luantedesco/iconeer/releases/tag/v0.1.0
