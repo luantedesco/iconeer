@@ -4,6 +4,10 @@ What changes for people using Iconeer, by version. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+### Changed
+
+- Iconeer no longer shows in the Dock or Cmd+Tab, even with its window open, and starts without opening the window. Open it with **Open Iconeer** in the menu bar icon.
+
 ## [0.2.0] - 2026-10-18
 
 ### Added

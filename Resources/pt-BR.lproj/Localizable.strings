@@ -56,7 +56,6 @@
 "Open at Login" = "Abrir ao Iniciar Sessão";
 "Open at Login couldn't be changed." = "Não foi possível alterar Abrir ao Iniciar Sessão.";
 "Quit" = "Encerrar";
-"Hide Iconeer" = "Ocultar Iconeer";
 "Quit Iconeer" = "Encerrar Iconeer";
 "Edit" = "Editar";
 "Undo" = "Desfazer";
@@ -67,5 +66,4 @@
 "Select All" = "Selecionar Tudo";
 "View" = "Visualizar";
 "Window" = "Janela";
-"Minimize" = "Minimizar";
 "Close" = "Fechar";
