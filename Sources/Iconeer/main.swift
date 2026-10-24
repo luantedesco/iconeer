@@ -2,11 +2,11 @@ import AppKit
 import IconeerCore
 import ServiceManagement
 
-// Iconeer lives in the menu bar: closing its window does not quit it, so it keeps reapplying
-// icons while it runs. Only Quit ends it. It shows in the Dock, Cmd+Tab and the menu bar's app
-// menu only while one of its windows is open.
+// Iconeer lives only in the menu bar: it never shows in the Dock or Cmd+Tab, and its window opens
+// from the menu bar icon. Closing the window does not quit it, so it keeps reapplying icons while
+// it runs. Only Quit ends it.
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var window: NSWindow!
     private var settings: NSWindow!
@@ -22,9 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let model = AppModel(service: service)
         self.model = model
         window = makeMainWindow(model: model)
-        window.delegate = self
         settings = makeSettingsWindow(model: model)
-        settings.delegate = self
         model.openSettings = { [weak self] in self?.openSettings() }
         NSApp.mainMenu = makeMainMenu()
         let notifier = Notifier()
@@ -44,7 +42,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: String(localized: "Quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
-        openWindow()
     }
 
     @objc private func openWindow() { show(window) }
@@ -71,14 +68,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func show(_ window: NSWindow) {
-        NSApp.setActivationPolicy(.regular)
         NSApp.activate()
         window.makeKeyAndOrderFront(nil)
-    }
-
-    func windowWillClose(_ notification: Notification) {
-        let other = notification.object as? NSWindow === window ? settings : window
-        if other?.isVisible != true { NSApp.setActivationPolicy(.accessory) }
     }
 
     // Edit gives the text fields Copy and Paste; without it, ⌘V does nothing in the key field.
@@ -98,7 +89,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             "Iconeer",
             [
                 item(String(localized: "Settings…"), #selector(openSettings), ","), .separator(),
-                item(String(localized: "Hide Iconeer"), #selector(NSApplication.hide(_:)), "h"),
                 item(String(localized: "Quit Iconeer"), #selector(NSApplication.terminate(_:)), "q"),
             ])
         submenu(
@@ -113,13 +103,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 item(String(localized: "Select All"), #selector(NSText.selectAll(_:)), "a"),
             ])
         submenu(String(localized: "View"), [item(String(localized: "Refresh"), #selector(refresh), "r")])
-        submenu(
-            String(localized: "Window"),
-            [
-                item("Iconeer", #selector(openWindow), "0"),
-                item(String(localized: "Minimize"), #selector(NSWindow.performMiniaturize(_:)), "m"),
-                item(String(localized: "Close"), #selector(NSWindow.performClose(_:)), "w"),
-            ])
+        submenu(String(localized: "Window"), [item(String(localized: "Close"), #selector(NSWindow.performClose(_:)), "w")])
         return main
     }
 
